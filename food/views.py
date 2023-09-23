@@ -7,10 +7,17 @@ from django.template import loader
 def index(request):
     items = Item.objects.all()
     print('Items..........',items)
-    context = {
 
-    }
     template = loader.get_template('food/index.html')
     # return HttpResponse('Hello')
-    return render(request, 'food/index.html') 
+    return render(request, 'food/index.html', {'item_list':items}) 
     # return HttpResponse(template.render(context, request))
+
+
+def details(request, item_id):
+    item = Item.objects.get(pk= item_id)
+    context = {
+        'item':item
+    }
+    # return HttpResponse(f"This is id {item_id}")
+    return render(request, 'food/details.html',context)  
